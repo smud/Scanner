@@ -42,11 +42,6 @@ extension Scanner {
         return scanFloat() != nil
     }
     
-    public func scanDouble() -> Double? {
-        var result: Double = 0.0
-        return scanDouble(&result) ? result : nil
-    }
-    
     @discardableResult
     public func skipDouble() -> Bool {
         return scanDouble() != nil
