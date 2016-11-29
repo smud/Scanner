@@ -78,7 +78,7 @@ extension Scanner {
     }
 
     @discardableResult
-    func skipCharacters(from: CharacterSet) -> Bool {
+    public func skipCharacters(from: CharacterSet) -> Bool {
         return scanCharacters(from: from) != nil
     }
     
