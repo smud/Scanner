@@ -48,14 +48,14 @@ extension Scanner {
         return scanUnsignedLongLong(&result) ? result : nil
     }
     
-    #if false
+    #if os(OSX)
     public func scanFloat() -> Float? {
         var result: Float = 0.0
         return scanFloat(&result) ? result : nil
     }
     #endif
     
-    #if false
+    #if os(OSX)
     public func scanDouble() -> Double? {
         var result: Double = 0.0
         return scanDouble(&result) ? result : nil
