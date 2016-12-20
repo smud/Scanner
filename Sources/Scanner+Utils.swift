@@ -13,6 +13,13 @@
 import Foundation
 
 extension Scanner {
+    public func skipping(_ characters: CharacterSet?, closure: () throws->()) rethrows {
+        let previous = charactersToBeSkipped
+        defer { charactersToBeSkipped = previous }
+        charactersToBeSkipped = characters
+        try closure()
+    }
+    
     @discardableResult
     public func skipInteger() -> Bool {
         return scanInteger() != nil
@@ -87,6 +94,23 @@ extension Scanner {
         return scanUpToCharacters(from: set) != nil
     }
 
+    public func peekUtf16CodeUnit() -> UTF16.CodeUnit? {
+        let originalScanLocation = scanLocation
+        defer { scanLocation = originalScanLocation }
+        
+        let originalCharactersToBeSkipped = charactersToBeSkipped
+        defer { charactersToBeSkipped = originalCharactersToBeSkipped }
+        
+        if let characters = charactersToBeSkipped {
+            charactersToBeSkipped = nil
+            let _ = scanCharacters(from: characters)
+        }
+        
+        guard scanLocation < string.utf16.count else { return nil }
+        let index = string.utf16.index(string.utf16.startIndex, offsetBy: scanLocation)
+        return string.utf16[index]
+    }
+    
     public var scanLocationInCharacters: Int {
         let utf16 = string.utf16
         guard let to16 = utf16.index(utf16.startIndex, offsetBy: scanLocation, limitedBy: utf16.endIndex),
