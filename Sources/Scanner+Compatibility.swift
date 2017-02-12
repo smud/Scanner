@@ -104,7 +104,7 @@ extension Scanner {
     public func scanString(_ searchString: String) -> String? {
         var result: NSString?
         guard scanString(searchString, into: &result) else { return nil }
-        return result as? String
+        return result as String?
     }
     #endif
 
@@ -116,7 +116,7 @@ extension Scanner {
     public func scanCharacters(from: CharacterSet) -> String? {
         var result: NSString?
         guard scanCharacters(from: from, into: &result) else { return nil }
-        return result as? String
+        return result as String?
     }
     #endif
 
@@ -128,7 +128,7 @@ extension Scanner {
     public func scanUpTo(_ string: String) -> String? {
         var result: NSString?
         guard scanUpTo(string, into: &result) else { return nil }
-        return result as? String
+        return result as String?
     }
     #endif
 
@@ -140,7 +140,7 @@ extension Scanner {
     public func scanUpToCharacters(from set: CharacterSet) -> String? {
         var result: NSString?
         guard scanUpToCharacters(from: set, into: &result) else { return nil }
-        return result as? String
+        return result as String?
     }
     #endif
 }
