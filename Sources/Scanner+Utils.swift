@@ -164,7 +164,12 @@ extension Scanner {
 
     // Very slow, do not in use in loops
     public func line() -> Int {
-        let lineCount = 1 + parsedText.characters.filter { $0 == "\n" || $0 == "\r\n" }.count
+        var lineCount = 1
+        parsedText.characters.forEach({ (character) in
+            if character == "\n" || character == "\r\n" {
+                lineCount = lineCount + 1
+            }
+        })
         return lineCount
     }
     
