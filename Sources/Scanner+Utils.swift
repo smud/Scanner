@@ -27,7 +27,7 @@ extension Scanner {
     
     @discardableResult
     public func skipInt32() -> Bool {
-        return scanInt32(nil)
+        return scanInt32() != nil
     }
 
 //    @discardableResult
