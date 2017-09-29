@@ -67,11 +67,11 @@ extension Scanner {
     //     return scanString(string: searchString)
     // }
     // #elseif os(OSX)
-    public func scanString(_ searchString: String) -> String? {
-        var result: String?
-        guard scanString(searchString, into: &result) else { return nil }
-        return result
-    }
+//    public func scanString(_ searchString: String) -> String? {
+//        var result: String?
+//        guard scanString(searchString, into: &result) else { return nil }
+//        return result
+//    }
     // #endif
     
     #if os(Linux) || os(Windows)

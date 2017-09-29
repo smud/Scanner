@@ -27,17 +27,13 @@ extension Scanner {
     
     @discardableResult
     public func skipInt32() -> Bool {
-        #if os(OSX)
-            return scanInt32(nil)
-        #else
-            return scanInt() != nil
-        #endif
+        return scanInt32(nil)
     }
 
-    @discardableResult
-    public func skipInt64() -> Bool {
-        return scanInt64() != nil
-    }
+//    @discardableResult
+//    public func skipInt64() -> Bool {
+//        return scanInt64() != nil
+//    }
     
     @discardableResult
     public func skipUInt64() -> Bool {
@@ -74,10 +70,10 @@ extension Scanner {
         return scanHexDouble() != nil
     }
 
-    @discardableResult
-    public func skipString(_ string: String) -> Bool {
-        return scanString(string) != nil
-    }
+//    @discardableResult
+//    public func skipString(_ string: String) -> Bool {
+//        return scanString(string) != nil
+//    }
 
     @discardableResult
     public func skipCharacters(from: CharacterSet) -> Bool {
