@@ -120,7 +120,7 @@ extension Scanner {
         return string.distance(from: string.startIndex, to: to)
     }
     
-    private var currentCharacterIndex: String.CharacterView.Index? {
+    private var currentCharacterIndex: String.Index? {
         let utf16 = string.utf16
         guard let to16 = utf16.index(utf16.startIndex, offsetBy: scanLocation, limitedBy: utf16.endIndex),
             let to = String.Index(to16, within: string) else {
@@ -130,14 +130,14 @@ extension Scanner {
         return to
     }
     
-    public var parsedText: String {
+    public var parsedText: Substring {
         guard let index = currentCharacterIndex else { return "" }
-        return string.substring(to: index)
+        return string[..<index]
     }
 
-    public var textToParse: String {
+    public var textToParse: Substring {
         guard let index = currentCharacterIndex else { return "" }
-        return string.substring(from: index)
+        return string[index...]
     }
     
     public var lineBeingParsed: String {
@@ -145,7 +145,7 @@ extension Scanner {
         var currentLine = 1
         var line = ""
         line.reserveCapacity(256)
-        for character in string.characters {
+        for character in string {
             if currentLine > targetLine {
                 break
             }
@@ -164,8 +164,13 @@ extension Scanner {
 
     // Very slow, do not in use in loops
     public func line() -> Int {
-        let lineCount = 1 + parsedText.characters.filter { $0 == "\n" || $0 == "\r\n" }.count
-        return lineCount
+        var newLinesCount = 0
+        parsedText.forEach {
+            if $0 == "\n" || $0 == "\r\n" {
+                newLinesCount += 1
+            }
+        }
+        return 1 + newLinesCount
     }
     
     // Very slow, do not in use in loops
@@ -174,7 +179,7 @@ extension Scanner {
         if let range = text.range(of: "\n", options: .backwards) {
             return text.distance(from: range.upperBound, to: text.endIndex) + 1
         }
-        return parsedText.characters.count + 1
+        return parsedText.count + 1
     }
 }
 
